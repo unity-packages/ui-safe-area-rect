@@ -22,9 +22,9 @@ namespace UnityPackages.UI {
 				// iPhone X
 				case 46:
 					if (this.top == true)
-						_top = _canvas.sizeDelta.y * 0.04f;
+						_top = _canvas.rect.height * 0.04f;
 					if (this.bottom == true)
-						_bottom = _canvas.sizeDelta.y * 0.04f;
+						_bottom = _canvas.rect.height * 0.04f;
 					break;
 			}
 
