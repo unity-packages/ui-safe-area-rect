@@ -9,39 +9,67 @@ namespace UnityPackages.UI {
 		public bool right;
 		public bool left;
 
+		private int lastCanvasSizeX;
+		private int lastCanvasSizeY;
+
+		private RectTransform canvasRect;
+		private RectTransform selfRect;
+
+		private void GetComponents () {
+			this.canvasRect = this.GetComponentInParent<Canvas> ().GetComponent<RectTransform> ();
+			this.selfRect = this.GetComponent<RectTransform> ();
+		}
+
 		private void Format () {
-			var _canvas = this.GetComponentInParent<Canvas> ().GetComponent<RectTransform> ();
-			var _rectTransform = this.GetComponent<RectTransform> ();
 			var _left = 0f;
 			var _right = 0f;
 			var _top = 0f;
 			var _bottom = 0f;
-			var _ratio = Mathf.RoundToInt ((_canvas.sizeDelta.x / _canvas.sizeDelta.y) * 100);
-
-			switch (_ratio) {
+			switch (Mathf.RoundToInt ((this.canvasRect.sizeDelta.x / this.canvasRect.sizeDelta.y) * 100)) {
 				// iPhone X
 				case 46:
 					if (this.top == true)
-						_top = _canvas.rect.height * 0.04f;
+						_top = this.canvasRect.sizeDelta.x * 0.04f;
 					if (this.bottom == true)
-						_bottom = _canvas.rect.height * 0.04f;
+						_bottom = this.canvasRect.sizeDelta.y * 0.04f;
 					break;
 			}
 
-			_rectTransform.hideFlags = HideFlags.NotEditable;
-			_rectTransform.anchorMin = Vector2.zero;
-			_rectTransform.anchorMax = Vector2.one;
-			_rectTransform.sizeDelta = new Vector2 (-(_left + _right), -(_top + _bottom));
-			_rectTransform.anchoredPosition = new Vector2 ((_left - _right) / 2f, -(_top - _bottom) / 2f);
+			this.selfRect.hideFlags = HideFlags.NotEditable;
+			this.selfRect.anchorMin = Vector2.zero;
+			this.selfRect.anchorMax = Vector2.one;
+			this.selfRect.sizeDelta = new Vector2 (-(_left + _right), -(_top + _bottom));
+			this.selfRect.anchoredPosition = new Vector2 ((_left - _right) / 2f, -(_top - _bottom) / 2f);
 		}
 
-		private void Awake () {
+		private void FormatIfNeeded () {
+			var _canvasX = Mathf.RoundToInt (this.canvasRect.sizeDelta.x);
+			var _canvasY = Mathf.RoundToInt (this.canvasRect.sizeDelta.y);
+
+			if (_canvasX == this.lastCanvasSizeX &&
+				_canvasY == this.lastCanvasSizeY)
+				return;
+
+			this.lastCanvasSizeX = _canvasX;
+			this.lastCanvasSizeY = _canvasY;
+
 			this.Format ();
 		}
 
+		private void Awake () {
+			this.GetComponents ();
+			this.Format ();
+		}
+
+		private void Update () {
+			this.FormatIfNeeded ();
+		}
+
 		private void OnDrawGizmos () {
-			if (Application.isPlaying == false)
+			if (Application.isPlaying == false) {
+				this.GetComponents ();
 				this.Format ();
+			}
 		}
 	}
 }
