@@ -53,16 +53,21 @@ namespace UnityPackages.UI {
 			this.lastCanvasSizeX = _canvasX;
 			this.lastCanvasSizeY = _canvasY;
 
+			Debug.LogWarning ("Reformatting UISafeAreaRect\n");
 			this.Format ();
 		}
 
 		private void Awake () {
 			this.GetComponents ();
+		}
+
+		private void Start () {
 			this.Format ();
 		}
 
 		private void Update () {
-			this.FormatIfNeeded ();
+			// this.FormatIfNeeded ();
+			this.Format ();
 		}
 
 		private void OnDrawGizmos () {
