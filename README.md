@@ -6,7 +6,8 @@ UI Safe Area Rect adds a component that automatically adjusts a rect transform t
 
 ## Install
 
-```sh
-$ git submodule add https://github.com/unity-packages/ui-safe-area-rect Assets/packages/ui-safe-area-rect
 ```
- 
+"com.unity-packages.ui-safe-area-rect": "git+https://github.com/unity-packages/ui-safe-area-rect"
+```
+
+[Click here to read the Unity Packages installation guide](https://github.com/unity-packages/installation)

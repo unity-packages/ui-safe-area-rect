@@ -1,0 +1,7 @@
+{
+  "name": "com.unity-packages.ui-safe-area-rect",
+  "displayName": "UI Safe Area Rect",
+  "version": "1.0.0",
+  "unity": "2018.3",
+  "description": "UI Safe Area Rect adds a component that automatically adjusts a rect transform to the devices safe areas. The safe areas will be applied in the editor as well according to the screen resolution."
+}
