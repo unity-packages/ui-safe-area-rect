@@ -25,7 +25,9 @@ namespace UnityPackages.UI {
 			var _right = 0f;
 			var _top = 0f;
 			var _bottom = 0f;
-			switch (Mathf.RoundToInt ((this.canvasRect.sizeDelta.x / this.canvasRect.sizeDelta.y) * 100)) {
+
+			var _octalRatio = Mathf.RoundToInt ((this.canvasRect.sizeDelta.x / this.canvasRect.sizeDelta.y) * 100);
+			switch (_octalRatio) {
 				// iPhone X
 				case 46:
 					if (this.top == true)
@@ -66,7 +68,7 @@ namespace UnityPackages.UI {
 		}
 
 		private void Update () {
-			// this.FormatIfNeeded ();
+			this.FormatIfNeeded ();
 			this.Format ();
 		}
 
